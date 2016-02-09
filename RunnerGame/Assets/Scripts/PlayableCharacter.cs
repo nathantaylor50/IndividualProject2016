@@ -47,7 +47,7 @@ namespace RunnerGame
 
         // FixedUpdate is called every physic step and is more consitent 
         //than Update function. so is better for performance
-        void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
             //send various states to the animator 
             UpdateAnimator();
