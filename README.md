@@ -25,6 +25,8 @@ https://unity3d.com/learn/tutorials/modules/intermediate/scripting/coroutines
 float.epsilon
 http://docs.unity3d.com/ScriptReference/Mathf.Epsilon.html
 
+Manager classes - persistent singletons
+
 ## tools: 
 -   Magicavoxel for models
 
