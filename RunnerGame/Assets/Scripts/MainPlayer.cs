@@ -51,7 +51,7 @@ namespace RunnerGame
             //if runner is already moving do nothing and exit
             if (_isMoving) { return; }
             //move runner to lane to the left
-            StartCoroutine(MoveTo(transform.position - Vector3.forward * LaneWidth, ChangingLaneSpeed));
+            StartCoroutine(MoveTo(transform.position + Vector3.forward * LaneWidth, ChangingLaneSpeed));
             _currentLane--;
         }
 
@@ -59,7 +59,7 @@ namespace RunnerGame
         public override void RightStart()
         {
             //if already in the right lane, do nothing and exit
-            if(_currentLane <= 1) { return; }
+            if(_currentLane == NumberOfLanes) { return; }
             //if runner is already moving do nothing and exit
             if (_isMoving) { return;  }
             //move the runner to the right
