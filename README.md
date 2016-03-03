@@ -25,6 +25,22 @@ https://unity3d.com/learn/tutorials/modules/intermediate/scripting/coroutines
 float.epsilon
 http://docs.unity3d.com/ScriptReference/Mathf.Epsilon.html
 
+Enumerations
+https://unity3d.com/learn/tutorials/modules/beginner/scripting/enumerations
+https://www.youtube.com/watch?v=6qo9iA2CZ3w
+http://www.alanzucconi.com/2015/07/26/enum-flags-and-bitwise-operators/
+http://www.sharkbombs.com/2015/02/17/unity-editor-enum-flags-as-toggle-buttons/
+
+best practices
+http://www.glenstevens.ca/unity3d-best-practices/
+https://www.reddit.com/r/Unity3D/comments/357eye/what_are_your_top_tips_for_unity_noobs/
+
+
+Manager classes - persistent singletons
+
+
+gizmos: 2d reporesentation in the scene view, so when I used empty game objects in the scene to show where something is or have something spawn in a specific place I can give it a gizmo representation to show where it is when I look at the scene view in unity
+
 ## tools: 
 -   Magicavoxel for models
 
