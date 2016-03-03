@@ -38,6 +38,9 @@ https://www.reddit.com/r/Unity3D/comments/357eye/what_are_your_top_tips_for_unit
 
 Manager classes - persistent singletons
 
+
+gizmos: 2d reporesentation in the scene view, so when I used empty game objects in the scene to show where something is or have something spawn in a specific place I can give it a gizmo representation to show where it is when I look at the scene view in unity
+
 ## tools: 
 -   Magicavoxel for models
 
