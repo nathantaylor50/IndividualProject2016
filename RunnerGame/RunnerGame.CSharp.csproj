@@ -62,7 +62,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\InputManager.cs" />
+    <Compile Include="Assets\Scripts\LevelManager.cs" />
     <Compile Include="Assets\Scripts\MainPlayer.cs" />
     <Compile Include="Assets\Scripts\MiscTools.cs" />
     <Compile Include="Assets\Scripts\PlayableCharacter.cs" />
