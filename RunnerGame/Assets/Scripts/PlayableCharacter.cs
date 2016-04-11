@@ -3,46 +3,63 @@ using System.Collections;
 
 namespace RunnerGame
 { 
-    /*
-        This class will hold code for the playable classes, 
-        this is a seperate class in case I need to encapsulate to have
-        another player (multiplayer shadow car) to use the code as well.
-    */ 
+	/// <summary>
+	/// Playable character. extend this class to access code for specific playable characters
+	/// This code is encapsulated to make debugging less strenous
+	/// </summary>
+
     public class PlayableCharacter : MonoBehaviour {
 
 
-        //should default mecanim be used?
+        ///should default mecanim be used?
         public bool UseDefaultMecanim = true;
-        //returns true if the character is currently grounded
-        public bool IsGrounded { get { return _grounded; } }
+        ///returns true if the character is currently grounded
         //if true, the object will try to go back to its starting position
-        public bool TryResetPosition = true;
-        // the speed of which the object should try to go back to its starting position
+        public bool ShouldResetPosition = true;
+        ///the speed of which the object should try to go back to its starting position
         public float ResetPosistionSpeed = 0.5f;
+		///the distance between gameObject and the ground
+		public float DistanceToGround { get; protected set; }
 
-        protected Vector3 _initialPosition;
-        protected bool _grounded;
-        //animation for wheel (might not need)
-        protected Animator _animator;
-        //
-        protected Rigidbody _rigidbody;
+        protected Vector3 initialPosition;
+        protected bool grounded;
+		protected Animator animator;
+		protected float distanceToTheGroundRayLength = 50.0f;
+		protected float groundDistanceTolerance = 0.05f;
+		protected LayerMask collisionMask;
 
-	    // Use this for initialization
-	    protected virtual void Awake () {
+	    /// <summary>
+		/// Use this for initialization
+	    /// </summary>
+	    protected virtual void Awake () 
+		{
             Initialize();
 	    }
 
-        //this initializes animator element
+		/// <summary>
+		/// Start this instance.
+		/// </summary>
+		protected virtual void Start() 
+		{
+			
+		}
+			
+        /// <summary>
+		/// this initializes animator element
+        /// </summary>
         protected virtual void Initialize()
         {
-            _animator = GetComponent<Animator>();
+            animator = GetComponent<Animator>();
         }
 
-        //define the initial position of the character (used to reset position)
-        //method is virtual to be overriddem
-        public virtual void SetInitialPosition(Vector3 initialPosition)
+
+		/// <summary>
+		/// Sets the initial position of the character (used to reset position)
+		/// </summary>
+		/// <param name="initPos">Initial position.</param>
+        public virtual void SetInitialPosition(Vector3 initPos)
         {
-            _initialPosition = initialPosition;
+            initialPosition = initPos;
         }
 
         // FixedUpdate is called every physic step and is more consitent 
@@ -53,15 +70,47 @@ namespace RunnerGame
             UpdateAnimator();
             //Lerp position to its initial position (Linearly interpolates between two vectors.)
             ResetPosition();
+			//check if player is out of bounds or not
+			CheckDeathBounds();
+			//distance between ground and player
+			CalDistanceToGround();
             
         }
 
-        /*
-            called at Update() and sets each animator parameter to its corresponding state values
-        */
+		/// <summary>
+		/// Distances between player and ground.
+		/// </summary>
+		protected virtual void CalDistanceToGround()
+		{
+
+			//cast a ray down below to check if current pos is above ground level and checks the distance
+			Vector2 raycastOrigin = transform.position;
+			//RaycastHit2D raycast = 
+		}
+
+		/// <summary>
+		/// checks death bounds
+		/// </summary>
+		protected virtual void CheckDeathBounds()
+		{
+
+		}
+		/// <summary>
+		/// Gets the object bounds.
+		/// </summary>
+		/// <returns>The object bounds.</returns>
+		protected virtual Bounds GetObjectBounds()
+		{
+
+		}
+
+
+
+           /// called at Update() and sets each animator parameter to its corresponding state values
+
         protected virtual void UpdateAnimator()
         {
-            if(_animator ==null)
+            if(animator ==null)
             { return;  }
             //send various states to the animator.
             if (UseDefaultMecanim)
@@ -77,8 +126,8 @@ namespace RunnerGame
         */
         protected virtual void UpdateAllMecanimAnimators()
         {
-            MiscTools.updateAnimatorBool(_animator, "Grounded", IsGrounded);
-            MiscTools.UpdateAnimatorFloat(_animator, "VerticalSpeed", _rigidbody.velocity.y);
+			MiscTools.updateAnimatorBool(animator, "Grounded", grounded);
+            //MiscTools.UpdateAnimatorFloat(animator, "VerticalSpeed", rigidbody.velocity.y);
         }
 
         /* 
@@ -86,59 +135,59 @@ namespace RunnerGame
         */
         protected virtual void ResetPosition()
         {
-            if(TryResetPosition)
+			if(ShouldResetPosition)
             {
-                if (IsGrounded)
+                if (grounded)
                 {
-                    _rigidbody.velocity = new Vector3((_initialPosition.x - transform.position.x) * (ResetPosistionSpeed), _rigidbody.velocity.y, _rigidbody.velocity.z);
+                   // rigidbody.velocity = new Vector3((_initialPosition.x - transform.position.x) * (ResetPosistionSpeed), _rigidbody.velocity.y, _rigidbody.velocity.z);
                 }
             }
         }
 
         //what happens then the main action button is pressed
-        public virtual void MainActionStart() {  }
+        public virtual void MainActionPresseed() {  }
 
         //what happens when the main action button is released
-        public virtual void MainActionEnd() { }
+        public virtual void MainActionReleased() { }
 
         //what happens when the main action is being pressed
-        public virtual void MainActionOnGoing() { }
+        public virtual void MainActionPressing() { }
 
         //what happens when when the down button is pressed
-        public virtual void DownStart() { }
+        public virtual void DownPressed() { }
 
         //what happens when the down button is released
-        public virtual void DownEnd() { }
+        public virtual void Downreleased() { }
 
         //what happens when the down button is being pressed
-        public virtual void DownOnGoing() { }
+        public virtual void DownPressing() { }
 
         //what happens when the up button is begin pressed
-        public virtual void UpStart() { }
+        public virtual void UpPressed() { }
 
         //what happens when the up button is released
-        public virtual void UpEnd() { }
+        public virtual void UpReleased() { }
 
         //what happens when the up button is being pressed
-        public virtual void UpOnGoing() { }
+        public virtual void UpPressing() { }
 
         //what happens when the left button is pressed
-        public virtual void LeftStart() { }
+        public virtual void LeftPressed() { }
 
         //what happens when the left button is released
-        public virtual void LeftEnd() { }
+        public virtual void LeftReleased() { }
 
         //what happens when the left button is being pressed
-        public virtual void LeftOnGoing() { }
+        public virtual void LeftPressing() { }
 
         //what happens when the right button is pressed
-        public virtual void RightStart() { }
+        public virtual void RightPressed() { }
 
         //what happens when the right button is released 
-        public virtual void RightEnd() { }
+        public virtual void RightReleased() { }
 
         //what happens when the right button is being pressed
-        public virtual void RightOnGoing() { }
+        public virtual void RightPressing() { }
 
 
         //disables the playable character
@@ -173,7 +222,7 @@ namespace RunnerGame
             {
                 if(collidingObject.transform.position.y <= transform.position.y)
                 {
-                    _grounded = true;
+                    grounded = true;
                 }
             }
         }
@@ -184,7 +233,7 @@ namespace RunnerGame
             //if we're leaving the ground
             if (collidingObject.layer == LayerMask.NameToLayer("Ground"))
             {
-                _grounded = false;
+                grounded = false;
             }
         }
     }
