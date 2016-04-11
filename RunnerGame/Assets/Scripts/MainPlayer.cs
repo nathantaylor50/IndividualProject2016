@@ -1,107 +1,100 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
-//namespace = collection
+
 namespace RunnerGame
 {
-    /*
-        This class is for having the player character switch lanes by moving left or right
-    */ 
-    ///  
-    public class MainPlayer : PlayableCharacter
-    {
-        //space and header allows to add a header above the following fields (variables) to unitys editor
-        [Space(10)]
-        [Header("Lanes")]
-        //the width of each lane
-        public float LaneWidth = 3f;
-        //the number of lanes the runner can run in
-        public int NumberOfLanes = 3;
-        // the speed, in seconds, at which the runner changes lanes
-        public float ChangingLaneSpeed = 1f;
-        //the gameobject instantiated when the runner dies
-        public GameObject Explosion;
+	/// <summary>
+	/// extend playable character class, player switches lanes by moving left or right
+	/// </summary>
+	public class MainPlayer : PlayableCharacter
+	{
+		//shows up in unity inspector
+		[Space(10)]
+		[Header("Lanes")]
+		///width of individual lanes
+		public float LaneWidth = 3.0f;
+		///the number of lanes the main player can run in
+		public int NumberOfLanes = 3;
+		///the speed in which the main player changes lane in seconds
+		public float ChangingLaneSpeed = 1.0f;
+		///instanced gameobject when main player dies
+		public GameObject Explosion;
 
-        protected int _currentLane;
-        protected bool _isMoving = false;
+		protected int currentLane;
+		protected bool isMoving = false;
 
-        // Use this for initialization
-       protected override void Awake()
-        {
-            Initialize();
-            //we initialize the current lane, which should be the middle lane in the center
-            _currentLane = NumberOfLanes / 2;
-            //if the number of lanes is odd, we add one to get a middle lane.
-            if (NumberOfLanes % 2 == 1) { _currentLane++; }
-        }
+		/// <summary>
+		/// Use this for initialization
+		/// </summary>
+		protected virtual void Awake()
+		{
+			Initialize ();
+			//init the current which should be the middle lane
+			currentLane = NumberOfLanes / 2;
+			//if the number of lanes is odd, we add one to get the moddle one.
+			if(NumberOfLanes % 2 ==1) {	currentLane++;	}
+		}
 
-        /* 
-            on fixed update we handle the animator's update
-        */
-        protected override void FixedUpdate()
-        {
-            //send various states to the animator
-            UpdateAnimator();
-        }
+		/// <summary>
+		/// Update this instance.
+		/// </summary>
+		protected override void Update()
+		{
+			//send states to animator
+			UpdateAnimator();
+			//check if the player is out of the death bounds or not
+			CheckDeathBounds();
+		}
 
-        //triggered when the player presses left
-        public override void LeftStart()
-        {
-            //if already in the left lane, do nothing and exit
-            if (_currentLane <= 1) { return; }
-            //if runner is already moving do nothing and exit
-            if (_isMoving) { return; }
-            //move runner to lane to the left
-            StartCoroutine(MoveTo(transform.position + Vector3.forward * LaneWidth, ChangingLaneSpeed));
-            _currentLane--;
-        }
+		/// <summary>
+		/// triggered when the player presses left
+		/// </summary>
+		public override void LeftPressed()
+		{
+			//if already in the left lane, do nothing and exit
+			if (currentLane <= 1) {	return;	}
+			//if the lane runner is already moving do nothing and exit
+			if (isMoving == true) {	return;	}
+			//move player left
+			StartCoroutine(MoveTo(transform.position + Vector3.forward * LaneWidth, ChangingLaneSpeed));
+			currentLane--;
+		}
 
-        //triggered when the player presses right
-        public override void RightStart()
-        {
-            //if already in the right lane, do nothing and exit
-            if(_currentLane == NumberOfLanes) { return; }
-            //if runner is already moving do nothing and exit
-            if (_isMoving) { return;  }
-            //move the runner to the right
-            StartCoroutine(MoveTo(transform.position - Vector3.forward * LaneWidth, ChangingLaneSpeed));
-            _currentLane++;
-        }
+		/// <summary>
+		/// Moves to.
+		/// </summary>
+		/// <returns>The to.</returns>
+		/// <param name="destination">Destination.</param>
+		/// <param name="movementDuration">Movement duration.</param>
+		protected IEnumerator MoveTo(Vector3 destination, float movementDuration)
+		{
+			//init
+			float elaspedTime = 0.0f;
+			Vector3 initPos = transform.position;
+			isMoving = true;
 
-        /*
-            Moves an object to a destination position in a determined time
-        */
-        protected IEnumerator MoveTo(Vector3 destination, float movementDuration)
-        {
-            //initialization
-            float elapsedTime = 0f;
-            Vector3 initialPosition = transform.position;
-            _isMoving = true;
+			float squareRemainingDistance = (transform.position - destination).sqrMagnitude;
+			while (squareRemainingDistance > float.Epsilon)
+			{
+				elaspedTime += Time.deltaTime;
+				transform.position = Vector3.Lerp (initPos, destination, elaspedTime / movementDuration);
+				squareRemainingDistance = (transform.position - destination).sqrMagnitude;
+				yield return null;
+			}
+			isMoving = false;
+		}
 
-            //squared length of this vector
-            float sqrRemainingDistance = (transform.position - destination).sqrMagnitude;
-            //using epsilon to deal with The small values that a float can have
-            while (sqrRemainingDistance > float.Epsilon)
-            {
-                elapsedTime += Time.deltaTime;
-                transform.position = Vector3.Lerp(initialPosition, destination, elapsedTime / movementDuration);
-                sqrRemainingDistance = (transform.position - destination).sqrMagnitude;
-                yield return null;
-            }
-            _isMoving = false;
-        }
-
-        /*  
-            when the runner dies, instantiate an explosion at the point of impact
-        */
-        public override void die()
-        {
-            if (Explosion != null)
-            {
-                GameObject explosion = (GameObject)Instantiate(Explosion);
-                explosion.transform.position = transform.GetComponent<Renderer>().bounds.center;
-            }
-            Destroy(gameObject);
-        }
-
-    }
+		/// <summary>
+		/// destroy this instance and initiate explosion
+		/// </summary>
+		public override void Die()
+		{
+			if (Explosion != null)
+			{
+				GameObject explosion = (GameObject)Instantiate (Explosion);
+				explosion.transform.position = transform.GetComponent<Renderer> ().bounds.center;
+			}
+			Destroy (gameObject);
+		}
+	}
 }
