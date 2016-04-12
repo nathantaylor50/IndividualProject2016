@@ -66,5 +66,38 @@ namespace RunnerGame
 			target.material.color=finalColor;
 		}
 
+
+		/// <summary>
+		/// Fades the canvas group.
+		/// </summary>
+		/// <returns>The canvas group.</returns>
+		/// <param name="target">Target.</param>
+		/// <param name="duration">Duration.</param>
+		/// <param name="targetAlpha">Target alpha.</param>
+		public static IEnumerator FadeCanvasGroup (CanvasGroup target, float duration, float targetAlpha)
+		{
+			if (target == null) {
+				yield break;
+			}
+
+			float currentAlpha = target.alpha;
+			float t = 0.0f;
+
+			while (t < 1.0f) {
+				if (target = null) {
+					yield break;
+				}
+				//fade will gradually speed up from start and slow down near end
+				float newAlpha = Mathf.SmoothStep(currentAlpha, targetAlpha , t);
+				target.alpha = newAlpha;
+
+				t += Time.deltaTime / duration;
+
+				yield return null;
+			}
+
+			target.alpha = targetAlpha;
+		}
+
 	}
 }
