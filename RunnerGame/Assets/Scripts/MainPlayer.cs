@@ -26,7 +26,7 @@ namespace RunnerGame
 		/// <summary>
 		/// Use this for initialization
 		/// </summary>
-		protected virtual void Awake()
+		protected override void Awake()
 		{
 			Initialize ();
 			//init the current which should be the middle lane
@@ -39,7 +39,7 @@ namespace RunnerGame
 		/// Update this instance.
 		/// </summary>
 		//protected override void Update ()
-		protected  void Update ()
+		protected override void Update ()
 		{
 			//send states to animator
 			UpdateAnimator();
@@ -51,14 +51,14 @@ namespace RunnerGame
 		/// triggered when the player presses right
 		/// </summary>
 		//public override void RightStart()
-		public  void RightStart()
+		public override void RightPressed()
 		{
 			//if already in right lane, do nothing and exit
 			if (currentLane == NumberOfLanes) {return;}
 			//if already moving do nothing and exit
 			if (isMoving) { return; }
 			//move lane runner to the right
-			StartCoroutine(MoveTo(transform.position + Vector3.forward * LaneWidth, ChangingLaneSpeed));
+			StartCoroutine(MoveTo(transform.position - Vector3.forward * LaneWidth, ChangingLaneSpeed));
 			currentLane++;
 		}
 
@@ -66,12 +66,12 @@ namespace RunnerGame
 		/// triggered when the player presses left
 		/// </summary>
 		//public override void LeftStart()
-		public void LeftStart()
+		public override void LeftPressed()
 		{
 			//if already in the left lane, do nothing and exit
 			if (currentLane <= 1) {	return;	}
 			//if the lane runner is already moving do nothing and exit
-			if (isMoving == true) {	return;	}
+			if (isMoving) {	return;	}
 			//move player left
 			StartCoroutine(MoveTo(transform.position + Vector3.forward * LaneWidth, ChangingLaneSpeed));
 			currentLane--;
@@ -107,7 +107,7 @@ namespace RunnerGame
 		/// destroy this instance and initiate explosion
 		/// </summary>
 		//public override void Die()
-		public  void Die()
+		public override void Die()
 
 		{
 			if (Explosion != null)
