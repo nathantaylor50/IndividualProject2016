@@ -43,7 +43,7 @@ namespace RunnerGame
 			init ();
 			UnityEvent thisEvent = null;
 			if (eventDictionary.TryGetValue (eventName, out thisEvent)) {
-				thisEvent.Invoke ();
+				thisEvent.RemoveListener (listener);
 			}
 		}
 
