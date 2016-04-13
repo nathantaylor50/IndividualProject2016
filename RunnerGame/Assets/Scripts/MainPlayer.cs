@@ -38,7 +38,8 @@ namespace RunnerGame
 		/// <summary>
 		/// Update this instance.
 		/// </summary>
-		protected override void Update()
+		//protected override void Update ()
+		protected  void Update ()
 		{
 			//send states to animator
 			UpdateAnimator();
@@ -47,9 +48,25 @@ namespace RunnerGame
 		}
 
 		/// <summary>
+		/// triggered when the player presses right
+		/// </summary>
+		//public override void RightStart()
+		public  void RightStart()
+		{
+			//if already in right lane, do nothing and exit
+			if (currentLane == NumberOfLanes) {return;}
+			//if already moving do nothing and exit
+			if (isMoving) { return; }
+			//move lane runner to the right
+			StartCoroutine(MoveTo(transform.position + Vector3.forward * LaneWidth, ChangingLaneSpeed));
+			currentLane++;
+		}
+
+		/// <summary>
 		/// triggered when the player presses left
 		/// </summary>
-		public override void LeftPressed()
+		//public override void LeftStart()
+		public void LeftStart()
 		{
 			//if already in the left lane, do nothing and exit
 			if (currentLane <= 1) {	return;	}
@@ -60,25 +77,27 @@ namespace RunnerGame
 			currentLane--;
 		}
 
+
+
 		/// <summary>
 		/// Moves to.
 		/// </summary>
 		/// <returns>The to.</returns>
 		/// <param name="destination">Destination.</param>
 		/// <param name="movementDuration">Movement duration.</param>
-		protected IEnumerator MoveTo(Vector3 destination, float movementDuration)
+		protected IEnumerator MoveTo(Vector3 dest, float moveDuration)
 		{
 			//init
 			float elaspedTime = 0.0f;
 			Vector3 initPos = transform.position;
 			isMoving = true;
 
-			float squareRemainingDistance = (transform.position - destination).sqrMagnitude;
+			float squareRemainingDistance = (transform.position - dest).sqrMagnitude;
 			while (squareRemainingDistance > float.Epsilon)
 			{
 				elaspedTime += Time.deltaTime;
-				transform.position = Vector3.Lerp (initPos, destination, elaspedTime / movementDuration);
-				squareRemainingDistance = (transform.position - destination).sqrMagnitude;
+				transform.position = Vector3.Lerp (initPos, dest, elaspedTime / moveDuration);
+				squareRemainingDistance = (transform.position - dest).sqrMagnitude;
 				yield return null;
 			}
 			isMoving = false;
@@ -87,7 +106,9 @@ namespace RunnerGame
 		/// <summary>
 		/// destroy this instance and initiate explosion
 		/// </summary>
-		public override void Die()
+		//public override void Die()
+		public  void Die()
+
 		{
 			if (Explosion != null)
 			{
