@@ -4,7 +4,7 @@ using System.Linq;
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using RunnerGame.MiscTools;
+
 
 namespace RunnerGame
 {
@@ -199,7 +199,7 @@ namespace RunnerGame
 				//manually set initial position
 				instance.SetInitialPosition(instance.transform.position);
 				//send it to the game manager
-				CurrentPlayablePlayers.Add(Instance);
+				CurrentPlayablePlayers.Add(instance);
 			}
 			EventManager.StartEvent ("PlayablePlayersInstantiated");
 		}
@@ -221,14 +221,14 @@ namespace RunnerGame
 			String buttonPath = "";
 			switch (ControlProfile) 
 			{
-				case Controls.SingleButton;
+				case Controls.SingleButton:
 					buttonPath = "Canvas/MainActionbutton";
 					if (GUIManager.Instance == null) {return;}
 					if (GUIManager.Instance.transform.Find(buttonPath) == null) { return; }
 					GUIManager.Instance.transform.Find(buttonPath).gameObject.SetActive(true);
 					break;
 
-			case Controls.LeftRight;
+			case Controls.LeftRight:
 				buttonPath = "Canvas/LeftRight";
 				if (GUIManager.Instance == null) { return; } 
 				if (GUIManager.Instance.transform.Find(buttonPath) == null) {return; }
@@ -282,9 +282,9 @@ namespace RunnerGame
 		/// </summary>
 		/// <param name="facot">Facot.</param>
 		/// <param name="duration">Duration.</param>
-		public virtual void TempMultiGameSpeed (float  facot, float duration)
+		public virtual void TempMultiGameSpeed (float  factor, float duration)
 		{
-			StartCoroutine(TempMultiGameSpeedCoroutine(factor, duration)):
+			StartCoroutine (TempMultiGameSpeedCoroutine (factor, duration));
 		}
 
 		/// <summary>
@@ -358,9 +358,9 @@ namespace RunnerGame
 			GameManager.Instance.UnPauseGame ();
 
 			if (string.IsNullOrEmpty (levelName)) {
-				LoadingScreenManager.loadScene ("StartScreen");
+				LoadingSceneManager.LoadGameScene ("StartScreen");
 			} else {
-				LoadingScreenManager.LoadScene (levelName);
+				LoadingSceneManager.LoadGameScene(levelName);
 			}
 		}
 
@@ -403,7 +403,7 @@ namespace RunnerGame
 		protected virtual IEnumerator killPlayerIE (PlayableCharacter player)
 		{
 			LevelManager.Instance.CurrentPlayablePlayers.Remove (player);
-			player.die ();
+			player.Die ();
 
 			yield return new WaitForSeconds (0.0f);
 
