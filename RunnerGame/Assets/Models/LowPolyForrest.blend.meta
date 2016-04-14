@@ -22,6 +22,11 @@ ModelImporter:
     100028: Icosphere_012
     100030: //RootNode
     100032: Plane
+    100034: Cube_001
+    100036: Icosphere_005
+    100038: Icosphere_006
+    100040: Icosphere_014
+    100042: Plane_001
     400000: Cube
     400002: Cylinder
     400004: Cylinder_001
@@ -39,6 +44,11 @@ ModelImporter:
     400028: Icosphere_012
     400030: //RootNode
     400032: Plane
+    400034: Cube_001
+    400036: Icosphere_005
+    400038: Icosphere_006
+    400040: Icosphere_014
+    400042: Plane_001
     2300000: Cube
     2300002: Cylinder
     2300004: Cylinder_001
@@ -55,6 +65,11 @@ ModelImporter:
     2300026: Icosphere_011
     2300028: Icosphere_012
     2300030: Plane
+    2300032: Cube_001
+    2300034: Icosphere_005
+    2300036: Icosphere_006
+    2300038: Icosphere_014
+    2300040: Plane_001
     3300000: Cube
     3300002: Cylinder
     3300004: Cylinder_001
@@ -71,6 +86,11 @@ ModelImporter:
     3300026: Icosphere_011
     3300028: Icosphere_012
     3300030: Plane
+    3300032: Cube_001
+    3300034: Icosphere_005
+    3300036: Icosphere_006
+    3300038: Icosphere_014
+    3300040: Plane_001
     4300000: Plane
     4300002: Cube
     4300004: Icosphere_012
@@ -87,6 +107,11 @@ ModelImporter:
     4300026: Cylinder_002
     4300028: Cylinder_001
     4300030: Cylinder
+    4300032: Plane_001
+    4300034: Cube_001
+    4300036: Icosphere_006
+    4300038: Icosphere_005
+    4300040: Icosphere_014
     7400000: Default Take
     9500000: //RootNode
   materials:
