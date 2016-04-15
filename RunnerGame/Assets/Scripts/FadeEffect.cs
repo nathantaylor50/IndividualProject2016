@@ -33,6 +33,31 @@ namespace RunnerGame
 			}
 			target.color = color;
 		}
+		/// <summary>
+		/// Fades the text.
+		/// </summary>
+		/// <returns>The text.</returns>
+		/// <param name="target">Target.</param>
+		/// <param name="duration">Duration.</param>
+		/// <param name="color">Color.</param>
+		public static IEnumerator FadeText (Text target, float duration, Color color)
+		{
+			if (target == null) {
+				yield break;
+			}
+
+			float alpha = target.color.a;
+
+			for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / duration)
+			{
+				if (target==null)
+					yield break;
+				Color newColor = new Color(color.r, color.g, color.b, Mathf.SmoothStep(alpha,color.a,t));
+				target.color=newColor;
+				yield return null;
+			}			
+			target.color=color;
+		}
 
 		/// <summary>
 		/// Fades the sprite.
