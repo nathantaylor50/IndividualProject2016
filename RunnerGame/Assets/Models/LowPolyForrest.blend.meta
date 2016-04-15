@@ -27,6 +27,16 @@ ModelImporter:
     100038: Icosphere_006
     100040: Icosphere_014
     100042: Plane_001
+    100044: Cube_002
+    100046: Cube_003
+    100048: Cube_004
+    100050: Icosphere_009
+    100052: Icosphere_013
+    100054: Icosphere_015
+    100056: Icosphere_016
+    100058: Icosphere_018
+    100060: Plane_002
+    100062: Plane_005
     400000: Cube
     400002: Cylinder
     400004: Cylinder_001
@@ -49,6 +59,16 @@ ModelImporter:
     400038: Icosphere_006
     400040: Icosphere_014
     400042: Plane_001
+    400044: Cube_002
+    400046: Cube_003
+    400048: Cube_004
+    400050: Icosphere_009
+    400052: Icosphere_013
+    400054: Icosphere_015
+    400056: Icosphere_016
+    400058: Icosphere_018
+    400060: Plane_002
+    400062: Plane_005
     2300000: Cube
     2300002: Cylinder
     2300004: Cylinder_001
@@ -70,6 +90,16 @@ ModelImporter:
     2300036: Icosphere_006
     2300038: Icosphere_014
     2300040: Plane_001
+    2300042: Cube_002
+    2300044: Cube_003
+    2300046: Cube_004
+    2300048: Icosphere_009
+    2300050: Icosphere_013
+    2300052: Icosphere_015
+    2300054: Icosphere_016
+    2300056: Icosphere_018
+    2300058: Plane_002
+    2300060: Plane_005
     3300000: Cube
     3300002: Cylinder
     3300004: Cylinder_001
@@ -91,6 +121,16 @@ ModelImporter:
     3300036: Icosphere_006
     3300038: Icosphere_014
     3300040: Plane_001
+    3300042: Cube_002
+    3300044: Cube_003
+    3300046: Cube_004
+    3300048: Icosphere_009
+    3300050: Icosphere_013
+    3300052: Icosphere_015
+    3300054: Icosphere_016
+    3300056: Icosphere_018
+    3300058: Plane_002
+    3300060: Plane_005
     4300000: Plane
     4300002: Cube
     4300004: Icosphere_012
@@ -112,6 +152,16 @@ ModelImporter:
     4300036: Icosphere_006
     4300038: Icosphere_005
     4300040: Icosphere_014
+    4300042: Cube_004
+    4300044: Cube_003
+    4300046: Icosphere_009
+    4300048: Cube_002
+    4300050: Plane_005
+    4300052: Plane_002
+    4300054: Icosphere_018
+    4300056: Icosphere_016
+    4300058: Icosphere_015
+    4300060: Icosphere_013
     7400000: Default Take
     9500000: //RootNode
   materials:
