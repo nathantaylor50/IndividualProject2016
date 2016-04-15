@@ -37,6 +37,18 @@ ModelImporter:
     100058: Icosphere_018
     100060: Plane_002
     100062: Plane_005
+    100064: Cylinder_004
+    100066: Cylinder_005
+    100068: Icosphere_017
+    100070: Icosphere_019
+    100072: Icosphere_020
+    100074: Icosphere_021
+    100076: Spike
+    100078: Spike_001
+    100080: Tree_normal
+    100082: Tree_Snow
+    100084: Spike_002
+    100086: Spike_000
     400000: Cube
     400002: Cylinder
     400004: Cylinder_001
@@ -69,6 +81,18 @@ ModelImporter:
     400058: Icosphere_018
     400060: Plane_002
     400062: Plane_005
+    400064: Cylinder_004
+    400066: Cylinder_005
+    400068: Icosphere_017
+    400070: Icosphere_019
+    400072: Icosphere_020
+    400074: Icosphere_021
+    400076: Spike
+    400078: Spike_001
+    400080: Tree_normal
+    400082: Tree_Snow
+    400084: Spike_002
+    400086: Spike_000
     2300000: Cube
     2300002: Cylinder
     2300004: Cylinder_001
@@ -100,6 +124,18 @@ ModelImporter:
     2300056: Icosphere_018
     2300058: Plane_002
     2300060: Plane_005
+    2300062: Cylinder_004
+    2300064: Cylinder_005
+    2300066: Icosphere_017
+    2300068: Icosphere_019
+    2300070: Icosphere_020
+    2300072: Icosphere_021
+    2300074: Spike
+    2300076: Spike_001
+    2300078: Tree_normal
+    2300080: Tree_Snow
+    2300082: Spike_002
+    2300084: Spike_000
     3300000: Cube
     3300002: Cylinder
     3300004: Cylinder_001
@@ -131,6 +167,18 @@ ModelImporter:
     3300056: Icosphere_018
     3300058: Plane_002
     3300060: Plane_005
+    3300062: Cylinder_004
+    3300064: Cylinder_005
+    3300066: Icosphere_017
+    3300068: Icosphere_019
+    3300070: Icosphere_020
+    3300072: Icosphere_021
+    3300074: Spike
+    3300076: Spike_001
+    3300078: Tree_normal
+    3300080: Tree_Snow
+    3300082: Spike_002
+    3300084: Spike_000
     4300000: Plane
     4300002: Cube
     4300004: Icosphere_012
@@ -162,6 +210,18 @@ ModelImporter:
     4300056: Icosphere_016
     4300058: Icosphere_015
     4300060: Icosphere_013
+    4300062: Icosphere_019
+    4300064: Icosphere_017
+    4300066: Spike_001
+    4300068: Icosphere_021
+    4300070: Icosphere_020
+    4300072: Spike
+    4300074: Tree_normal
+    4300076: Tree_Snow
+    4300078: Cylinder_005
+    4300080: Cylinder_004
+    4300082: Spike_002
+    4300084: Spike_000
     7400000: Default Take
     9500000: //RootNode
   materials:
