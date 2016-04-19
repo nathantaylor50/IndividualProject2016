@@ -7,6 +7,7 @@ namespace RunnerGame
 {
 	/// <summary>
 	/// Start screen.
+	/// checks for main action button press, when pressed loads a specific level
 	/// </summary>
 	public class StartScreen : MonoBehaviour
 	{
