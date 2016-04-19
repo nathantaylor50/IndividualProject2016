@@ -5,6 +5,8 @@ namespace RunnerGame
 {
 	/// <summary>
 	/// Kill on touch.
+	/// in this context uses the collider attached as a trigger
+	/// and kills objects with player tag upon contact
 	/// </summary>
 	public class KillOnTouch : MonoBehaviour
 	{
@@ -22,7 +24,7 @@ namespace RunnerGame
 		/// <param name="collidingGameObject">Colliding game object.</param>
 		protected virtual void TriggerCollision (GameObject collidingGameObject)
 		{
-			//
+			//if colliding object does not have the player tag, do nothing
 			if (collidingGameObject.tag != "Player") { return;}
 
 			PlayableCharacter player = collidingGameObject.GetComponent<PlayableCharacter> ();
