@@ -84,7 +84,7 @@ namespace RunnerGame
 		/// <summary>
 		/// Resets the manager.
 		/// </summary>
-		public virtual void ResetManager(){
+		public virtual void Reset(){
 			GamePoints = 0;
 			GameTimeScale = 1.0f;
 			GameManager.instance.SetGameStatus (GameStateStatus.GameRunning);
