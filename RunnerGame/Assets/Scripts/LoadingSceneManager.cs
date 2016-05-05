@@ -37,7 +37,7 @@ namespace RunnerGame
 		/// <param name="SceneToLoad">Scene to load.</param>
 		public static void LoadGameScene(string SceneToLoad)
 		{
-			sceneToLoad = sceneToLoad;
+			sceneToLoad = SceneToLoad;
 			//priority of the background loading thread
 			Application.backgroundLoadingPriority = ThreadPriority.High;
 			if (LoadingScreenSceneName != null) {
@@ -60,6 +60,7 @@ namespace RunnerGame
 		/// </summary>
 		protected virtual void Update(){
 			LoadingProgressBar.GetComponent<Image> ().fillAmount = MiscTools.MoveFromTo (LoadingProgressBar.GetComponent<Image> ().fillAmount, filltarget, Time.deltaTime * ProgressBarSpeed);
+
 		}
 
 		/// <summary>

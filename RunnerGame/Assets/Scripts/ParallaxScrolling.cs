@@ -6,9 +6,9 @@ namespace RunnerGame
 	/// <summary>
 	/// Parallax scrolling.
 	/// </summary>
-	public class ParallaxScrolling :ObjectBounds
+	public class ParallaxScrolling : ObjectBounds
 	{
-		///relative speed of the object
+		/// speed
 		public float ParallaxSpeed = 0.0f;
 
 		protected GameObject clone;
@@ -26,7 +26,7 @@ namespace RunnerGame
 
 			//
 			clone = (GameObject)Instantiate(gameObject, new Vector3(transform.position.x  +width, transform.position.y, transform.position.z), transform.rotation);
-			//
+			//remove the parallax component from the clone to prevent a infinite loop
 			ParallaxScrolling ParaComponent = clone.GetComponent<ParallaxScrolling> ();
 			Destroy (ParaComponent);
 		}

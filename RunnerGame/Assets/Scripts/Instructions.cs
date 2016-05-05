@@ -23,7 +23,7 @@ namespace RunnerGame
 			if (LevelManager.Instance != null) {
 				if (LevelManager.Instance.InstructionsText != "") {
 					InstructionsText.text = LevelManager.Instance.InstructionsText;
-					Invoke ("Disapear", Duration);
+					Invoke ("FadeAway", Duration);
 				} else {
 					DestroyInstructions ();
 				}

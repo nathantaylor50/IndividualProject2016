@@ -41,6 +41,14 @@ namespace RunnerGame
 		{
 			LoadingSceneManager.LoadGameScene (TargetLevelName);
 		}
+
+		/// <summary>
+		/// Quits the game.
+		/// </summary>
+		public virtual void QuitGame()
+		{
+			Application.Quit ();
+		}
 	}
 
 }

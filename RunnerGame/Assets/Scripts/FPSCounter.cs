@@ -5,27 +5,27 @@ using System;
 namespace RunnerGame {
 	public class FPSCounter : MonoBehaviour
 	{
-		const float fpsMeasurePeriod = 0.5f;
-		private int fpsAccumulator;
-		private float fpsNextPeriod;
+		const float fpsMeasureAmount = 0.5f;
+		private int fpsIncrement;
+		private float fpsNextAmount;
 		private int currentFps;
 		const string display = "{0} FPS";
 		Text fpsText;
 
 		private void Start()
 	{
-		fpsNextPeriod = Time.realtimeSinceStartup + fpsMeasurePeriod;
+		fpsNextAmount = Time.realtimeSinceStartup + fpsMeasureAmount;
 		fpsText = GetComponent<Text> ();
 	}
 
 		private void Update()
 		{
-			//
-			fpsAccumulator++;
-			if (Time.realtimeSinceStartup > fpsNextPeriod) {
-				currentFps = (int)(fpsAccumulator / fpsMeasurePeriod);
-				fpsAccumulator = 0;
-				fpsNextPeriod += fpsMeasurePeriod;
+			//measure average frame rate per second
+			fpsIncrement++;
+			if (Time.realtimeSinceStartup > fpsNextAmount) {
+				currentFps = (int)(fpsIncrement / fpsMeasureAmount);
+				fpsIncrement = 0;
+				fpsNextAmount += fpsMeasureAmount;
 				fpsText.text = string.Format (display, currentFps);
 			}
 

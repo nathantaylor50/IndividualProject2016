@@ -29,7 +29,7 @@ namespace RunnerGame
 		/// <summary>
 		/// Controls.
 		/// </summary>
-	    public enum Controls { SingleButton, LeftRight, Jump }
+	    public enum Controls { SingleButton, LeftRight }
 
 		///the current speed the level is traveling at
 		public float Speed { get; protected set;}
@@ -124,7 +124,7 @@ namespace RunnerGame
 				//set the name of the level in the GUI
 				GUIManager.Instance.SetLevelName(SceneManager.GetActiveScene().name);
 				//fade in 
-				GUIManager.Instance.FadeOn(false, IntroFadeDuration);
+				GUIManager.Instance.FadeEffectOn(false, IntroFadeDuration);
 			}
 
 			PrepareGameStart ();
@@ -192,7 +192,7 @@ namespace RunnerGame
 
 
 			for (int i = 0; i < PlayablePlayers.Count; i++) {
-				//init prefav
+				//init prefab
 				PlayableCharacter instance = (PlayableCharacter)Instantiate(PlayablePlayers[i]);
 				//position based of starting position object point
 				instance.transform.position = new Vector2(startingPosition.transform.position.x + i * DistanceBetweenPlayers, startingPosition.transform.position.y);
@@ -341,7 +341,7 @@ namespace RunnerGame
 		/// <param name="levelName">Level name.</param>
 		public virtual void GoToGameLevel (string levelName)
 		{
-			GUIManager.Instance.FadeOn (true, OutroFadeDuration);
+			GUIManager.Instance.FadeEffectOn (true, OutroFadeDuration);
 			StartCoroutine (GoToGameLevelIE (levelName));
 		}
 

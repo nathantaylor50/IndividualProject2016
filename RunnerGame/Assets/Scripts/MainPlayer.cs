@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+
 namespace RunnerGame
 {
 	/// <summary>
@@ -52,7 +53,8 @@ namespace RunnerGame
 		/// </summary>
 		//public override void RightStart()
 		public override void RightPressed()
-		{
+		{	
+
 			//if already in right lane, do nothing and exit
 			if (currentLane == NumberOfLanes) {return;}
 			//if already moving do nothing and exit
@@ -68,6 +70,8 @@ namespace RunnerGame
 		//public override void LeftStart()
 		public override void LeftPressed()
 		{
+
+
 			//if already in the left lane, do nothing and exit
 			if (currentLane <= 1) {	return;	}
 			//if the lane runner is already moving do nothing and exit
@@ -108,8 +112,8 @@ namespace RunnerGame
 		/// </summary>
 		//public override void Die()
 		public override void Die()
+		{	
 
-		{
 			if (Explosion != null)
 			{
 				GameObject explosion = (GameObject)Instantiate (Explosion);

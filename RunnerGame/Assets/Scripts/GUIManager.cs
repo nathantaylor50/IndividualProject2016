@@ -77,7 +77,7 @@ namespace RunnerGame
 				//init the heart gameobject and position it
 				GameObject gameHeart = (GameObject)Instantiate(Resources.Load(resourceURL));
 				gameHeart.transform.SetParent (HealthContainer.transform, false);
-				HealthContainer.GetComponent<RectTransform> ().localPosition 
+				gameHeart.GetComponent<RectTransform> ().localPosition 
 				= new Vector3 (HealthContainer.GetComponent<RectTransform> ().sizeDelta.x / 2 - i
 				* (gameHeart.GetComponent<RectTransform> ().sizeDelta.x * 75.0f), 0, 0);
 				deadGameLives--;
@@ -154,7 +154,7 @@ namespace RunnerGame
 			if (LevelText == null) {
 				return;
 			}
-			LevelText.text = name;
+			LevelText.text = "A Winter's Drive";
 		}
 
 

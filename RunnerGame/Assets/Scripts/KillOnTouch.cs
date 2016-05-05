@@ -14,8 +14,8 @@ namespace RunnerGame
 		/// Raises the trigger collision event.
 		/// </summary>
 		/// <param name="collider">Collider.</param>
-		protected virtual void OnTriggerCollision (Collider collider){
-
+		protected virtual void OnTriggerEnter (Collider collider){
+			TriggerCollision (collider.gameObject);
 		}
 
 		/// <summary>

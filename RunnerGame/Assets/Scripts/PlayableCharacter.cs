@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
 namespace RunnerGame
 { 
@@ -8,7 +9,7 @@ namespace RunnerGame
 	/// This code is encapsulated to make debugging less strenous
 	/// </summary>
 
-    public class PlayableCharacter : MonoBehaviour {
+	public class PlayableCharacter :  NetworkBehaviour {
 
 
         ///should default mecanim be used?
@@ -23,6 +24,7 @@ namespace RunnerGame
 
         protected Vector3 initialPosition;
         protected bool grounded;
+		protected RigidbodyInterface rigidbodyInterface; //????
 		protected Animator animator;
 		protected float distanceToTheGroundRayLength = 50.0f;
 		protected float groundDistanceTolerance = 0.05f;
@@ -48,9 +50,15 @@ namespace RunnerGame
 		/// this initializes animator element
         /// </summary>
         protected virtual void Initialize()
-        {
-            animator = GetComponent<Animator>();
-        }
+		{
+			rigidbodyInterface = GetComponent<RigidbodyInterface> ();		
+			animator = GetComponent<Animator>();
+
+			if (rigidbodyInterface == null)
+			{
+				return;
+			}
+		}
 
 
 		/// <summary>
@@ -64,7 +72,7 @@ namespace RunnerGame
 
         // FixedUpdate is called every physic step and is more consitent 
         //than Update function. so is better for performance
-        protected virtual void FixedUpdate()
+        protected virtual void Update()
         {
             //send various states to the animator 
             UpdateAnimator();
@@ -72,28 +80,20 @@ namespace RunnerGame
             ResetPosition();
 			//check if player is out of bounds or not
 			CheckDeathBounds();
-			//distance between ground and player
-			CalDistanceToGround();
+
             
         }
 
-		/// <summary>
-		/// Distances between player and ground.
-		/// </summary>
-		protected virtual void CalDistanceToGround()
-		{
 
-			//cast a ray down below to check if current pos is above ground level and checks the distance
-			Vector2 raycastOrigin = transform.position;
-			//RaycastHit2D raycast = 
-		}
 
 		/// <summary>
 		/// checks death bounds
 		/// </summary>
 		protected virtual void CheckDeathBounds()
 		{
-
+			if (LevelManager.Instance.CheckDeathObjectBounds (GetObjectBounds ())) {
+				LevelManager.Instance.KillPlayer (this);
+			}
 		}
 		/// <summary>
 		/// Gets the object bounds.
@@ -101,21 +101,25 @@ namespace RunnerGame
 		/// <returns>The object bounds.</returns>
 		protected virtual Bounds GetObjectBounds()
 		{
+			if (GetComponent<Collider> () != null) {
+				return GetComponent<Collider> ().bounds;
+			}
 
+			return GetComponent<Renderer>().bounds;
 		}
 
 
 
            /// called at Update() and sets each animator parameter to its corresponding state values
 
-        protected virtual void UpdateAnimator()
+		protected virtual void UpdateAnimator()
         {
             if(animator ==null)
             { return;  }
             //send various states to the animator.
             if (UseDefaultMecanim)
             {
-                UpdateAllMecanimAnimators();
+				UpdateAllMecanimAnimators();
             }
         }
 
@@ -126,8 +130,7 @@ namespace RunnerGame
         */
         protected virtual void UpdateAllMecanimAnimators()
         {
-			MiscTools.updateAnimatorBool(animator, "Grounded", grounded);
-            //MiscTools.UpdateAnimatorFloat(animator, "VerticalSpeed", rigidbody.velocity.y);
+
         }
 
         /* 
@@ -139,13 +142,37 @@ namespace RunnerGame
             {
                 if (grounded)
                 {
-                   // rigidbody.velocity = new Vector3((_initialPosition.x - transform.position.x) * (ResetPosistionSpeed), _rigidbody.velocity.y, _rigidbody.velocity.z);
+					rigidbodyInterface.Velocity = new Vector3((initialPosition.x - transform.position.x) * (ResetPosistionSpeed), rigidbodyInterface.Velocity.y, rigidbodyInterface.Velocity.z);
                 }
             }
         }
 
+		//disables the playable character
+		public virtual void Disable()
+		{
+			gameObject.SetActive(false);
+		}
+
+		///destroy the object (die)
+		public virtual void Die()
+		{
+			Destroy(gameObject);
+		}
+
+		public virtual void DisableCollisions()
+		{
+			rigidbodyInterface.EnableBoxCollider (false);
+		}
+
+		public virtual void EnableCollisions()
+		{
+
+			rigidbodyInterface.EnableBoxCollider (true);
+		}
+
+
         //what happens then the main action button is pressed
-        public virtual void MainActionPresseed() {  }
+        public virtual void MainActionPressed() {  }
 
         //what happens when the main action button is released
         public virtual void MainActionReleased() { }
@@ -190,18 +217,6 @@ namespace RunnerGame
         public virtual void RightPressing() { }
 
 
-        //disables the playable character
-        public virtual void Disable()
-        {
-            gameObject.SetActive(false);
-        }
-
-        //destroy the object (die)
-        public virtual void die()
-        {
-            Destroy(gameObject);
-        }
-
         //Handles enter collision with 3D colliders
         protected virtual void OnCollisionEnter (Collision collidingObject)
         {
@@ -214,27 +229,38 @@ namespace RunnerGame
             CollisionExit(collidingObject.collider.gameObject);
         }
 
-        //Detects when the object touches a object on the ground layer
-        protected virtual void CollisionEnter(GameObject collidingObject)
-        {
-            //if we're entering a collision with the ground
-            if(collidingObject.layer == LayerMask.NameToLayer ("Ground"))
-            {
-                if(collidingObject.transform.position.y <= transform.position.y)
-                {
-                    grounded = true;
-                }
-            }
-        }
 
-        //Detects when the object leaves the ground#
-        protected virtual void CollisionExit(GameObject collidingObject)
-        {
-            //if we're leaving the ground
-            if (collidingObject.layer == LayerMask.NameToLayer("Ground"))
-            {
-                grounded = false;
-            }
-        }
+
+		protected virtual void OnTriggerEnter(GameObject collidingObject)
+		{
+			TriggerEnter (collidingObject.gameObject);
+
+		}
+
+
+		protected virtual void OnTriggerExit (GameObject collidingObject)
+		{
+			TriggerExit (collidingObject.gameObject);
+		}
+
+		protected virtual void CollisionEnter(GameObject collidingObject)
+		{
+
+		}
+
+		protected virtual void CollisionExit (GameObject collidingObject)
+		{
+
+		}
+
+		protected virtual void TriggerEnter(GameObject collidingObject)
+		{
+
+		}
+
+		protected virtual void TriggerExit (GameObject collidingObject)
+		{
+
+		}
     }
 }
